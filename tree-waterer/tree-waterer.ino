@@ -33,6 +33,8 @@ void loop() {
 }
 
 void actuateSolenoid() {
-  //implement method
+  digitalWrite(solenoidPin, HIGH);
+  delay(2000);
+  digitalWrite(solenoidPin, LOW);
 }
 
