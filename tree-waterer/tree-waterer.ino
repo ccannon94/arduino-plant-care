@@ -1,16 +1,19 @@
 //declare constants
 const int floatSensor1Pin = 2;
 const int floatSensor2Pin = 3;
+const int timeoutLedPin = 5;
 const int solenoidPin = 7;
 
 //declare variables
 int timeCounter = 0;
 int floatCounter = 0;
+int timeoutCounter = 0
 
 void setup() {
     // put your setup code here, to run once:
     pinMode(floatSensor1Pin, INPUT_PULLUP);
     pinMode(floatSensor2Pin, INPUT_PULLUP);
+    pinMode(timeoutLedPin, OUTPUT);
     pinMode(solenoidPin, OUTPUT);
 }
 
@@ -35,6 +38,11 @@ void actuateSolenoid() {
   while(lowWater) {
     delay(200);
     if(!waterIsLow) lowWater = false;
+    timeoutCounter++;
+
+    if(timeoutCounter >= 600) {
+      timeout();
+    }
   }
   digitalWrite(solenoidPin, LOW);
 }
@@ -50,5 +58,12 @@ bool waterIsLow() {
 
   floatCounter = 0;
   return false;
+}
+
+void timeout() {
+  while(true) {
+    digitalWrite(solenoidPin, LOW);
+    digitalWrite(timeoutLedPin, HIGH);
+  }
 }
 
