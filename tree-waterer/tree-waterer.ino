@@ -31,6 +31,7 @@ void loop() {
         timeCounter = 0;
     }
     timeCounter++;
+    Serial.println(fillTimeLog);
 }
 
 void actuateSolenoid() {
