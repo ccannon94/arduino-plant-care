@@ -33,7 +33,7 @@ void actuateSolenoid() {
   digitalWrite(solenoidPin, HIGH);
   
   while(lowWater) {
-    delay(500);
+    delay(200);
     if(!waterIsLow) lowWater = false;
   }
   digitalWrite(solenoidPin, LOW);
@@ -43,7 +43,7 @@ bool waterIsLow() {
   if(digitalRead(floatSensor1Pin) == LOW) floatCounter++;
   if(digitalRead(floatSensor2Pin) == LOW) floatCounter++;
 
-  if(floatCounter >= 2) {
+  if(floatCounter > 0) {
     floatCounter = 0;
     return true;
   }
