@@ -9,16 +9,19 @@ int timeCounter = 0;
 int floatCounter = 0;
 int timeoutCounter = 0
 
+int fillTimeLog[50];
+int currentLogLocaton = 0;
+
 void setup() {
-    // put your setup code here, to run once:
     pinMode(floatSensor1Pin, INPUT_PULLUP);
     pinMode(floatSensor2Pin, INPUT_PULLUP);
     pinMode(timeoutLedPin, OUTPUT);
     pinMode(solenoidPin, OUTPUT);
+
+    Serial.begin(9600);
 }
 
 void loop() {
-    // put your main code here, to run repeatedly:
     if(timeCounter >= 10000) {
         
         if(waterIsLow) {
@@ -44,7 +47,12 @@ void actuateSolenoid() {
       timeout();
     }
   }
+
+  fillTimeLog[currentLogLocation] = timeoutCounter;
+  currentLogLocation ++;
+  
   digitalWrite(solenoidPin, LOW);
+  timeoutCounter = 0;
 }
 
 bool waterIsLow() {
